@@ -3,7 +3,7 @@
  * 
  *      altenative way to handle promises
  * 
- *      async functions are automatically going to retun a promise
+ *      async functions are automatically going to return a promise
  *          whatever data is returned by the funtion is the "resolved" state
  *          if the function throws an exception, that will be the "rejected" state
  * 
@@ -89,4 +89,4 @@ const buyItemsFromStore = async(startLocation, endLocation, items) => {
     }
 }
 
-buyItemsFromStore('Home', 'Trader Joes', ['Apple', 'Milk', 'Honey']);
+buyItemsFromStore('Home', 'Trader Joes', ['Apple', 'Milk', 'Eggs']);

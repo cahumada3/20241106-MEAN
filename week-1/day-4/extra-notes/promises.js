@@ -15,38 +15,44 @@
  */
 
 // creating a Promise manually
-// let promise1 = new Promise((resolve, reject) => {
-//     // usually, you'd have some async code in here
-//     let x = Math.random();
+let promise1 = new Promise((resolve, reject) => {
+    // usually, you'd have some async code in here
+    let x = Math.random();
 
-//     // the value in the resolve/reject parentheses is what will be passed along to then/catch for them to process/handle
-//     if (x > 0.5) {
-//         resolve("Number was > 0.5 -- SUCCESS!");
-//     } else {
-//         reject("Number was <= 0.5 -- FAILURE!")
-//     }
-// });
+    // the value in the resolve/reject parentheses is what will be passed along to then/catch for them to process/handle
+    if (x > 0.5) {
+        resolve("Number was > 0.5 -- SUCCESS!");
+        console.log("Number is: " + x);
+    } else {
+        reject("Number was <= 0.5 -- FAILURE!");
+        console.log("Number is: " + x);
+    }
+});
 
 // handling the various states of our Promise
 // .then() is what we do if successful -- it takes in the unpacked data of our Promise
 // .catch() is what we do if the Promise failed -- it takes in the unpacked data of the error
 // .finally() is what we do regardless -- it doesn't take in anything
-// promise1.then(data => console.log(data))
-//         .catch(error => console.log(error))
-//         .finally(() => console.log('Promise fully processed.'));  // finally blocks process whether the program errored out or not!
+promise1.then(data => console.log(data))
+        .catch(error => console.log(error))
+        .finally(() => console.log('Promise fully processed.'));  // finally blocks process whether the program errored out or not!
 
 // there are some static methods for Promise that allow to process multiple Promises at once
 
 // Promise.all() -- takes some sort of iterable, like an array of Promises
 // this resolves if ALL the Promises are successful
 // it rejects if ANY of the Promises fail
+
 let allPromise1 = Promise.resolve('P1 resolved');
 let allPromise2 = Promise.reject('P2 rejected');
 let allPromise3 = Promise.reject('P3 rejected');
 
+
+
 // we handle Promise.all() just like any other Promise, with then/catch/finally
-// Promise.all([ allPromise1, allPromise2, allPromise3 ]).then(data => console.log(data))
-//                                                       .catch(error => console.log(error));
+Promise.all([ allPromise1, allPromise2, allPromise3 ]).then(data => console.log(data))
+                                                      .catch(error => console.log(error))
+                                                      .finally(() => console.log('Promise fully processed.'));
 
 // Promise.allSettled() -- also takes an iterable
 // this waits until ALL Promises are settled, whether they succeed or fail
