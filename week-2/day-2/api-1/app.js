@@ -3,11 +3,12 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
+app.use(express.json);
 
 const salespersonLogger = require('./middleware/salesperson-middleware')
 
 const salespersonRouter = require('./controllers/salesperson-controller');
-app.use('/salesperson', salespersonRouter);
+app.use('/salesperson', salespersonRouter, salespersonLogger);
 
 // we're routing requests to other files for processing
 const saleRouter = require('./controllers/sale-controller');

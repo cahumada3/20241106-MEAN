@@ -45,27 +45,29 @@ const getSalesPersonById = async (id) => {
 } 
 
 const createSalesPerson = async (body) => {
+    const {first_name, last_name, department, hire_date, salary} = body;
+
     let newSalesPerson;
 
     connection.connect();
-    await connection.promise().query('INSERT INTO salesperson(first_name, last_name, department, hire_date, salary)' +
-                                    'VALUES(?, ?, ?, ?, ?)', [first_name, last_name, department, hire_date, salary])
+    await connection.promise().query('INSERT INTO salesperson(first_name, last_name, department, hire_date, salary)' 
+                                    + 'VALUES(?, ?, ?, ?, ?)', [first_name, last_name, department, hire_date, salary])
                     .then(async response => newSalesPerson = await getSalesPersonById(response[0].insertId));
 
     return newSalesPerson;
 }
 
-const updateSalesPerson = async (body, idToUpdate) => {
-    const {id, first_name, last_name, department, hire_date, salary} = body;
+const updatedSalesPerson = async (body, idToUpdate) => {
+    const {first_name, last_name, department, hire_date, salary} = body;
 
     let updatedSalesPerson;
 
     connection.connect();
-    await connection.promise().query('UPDATE salesperson SET id = ?, first_name = ?, last_name = ?, department = ?, hire_date = ?, salary = ?' +
-                                    'WHERE id = ?', [undefined, first_name, last_name, department, hire_date, salary, idToUpdate])
-                    .then(async response => updatedSalesPerson = await getSalesPersonById(id));
+    await connection.promise().query('UPDATE salesperson SET first_name = ?, last_name = ?, department = ?, hire_date = ?, salary = ?' +
+                                    ' WHERE id = ?', [first_name, last_name, department, hire_date, salary, idToUpdate])
+                    .then(async response => updatedSalesPerson = await getSalesPersonById(idToUpdate));
 
-    return updateSalesPerson;
+    return updatedSalesPerson;
 }
 
 const deleteSalesPerson = async (id) => {
@@ -75,4 +77,4 @@ const deleteSalesPerson = async (id) => {
 }
 
 
-module.exports = { getAllSalesPersons, getSalesPersonById, createSalesPerson, updateSalesPerson, deleteSalesPerson };
+module.exports = { getAllSalesPersons, getSalesPersonById, createSalesPerson, updatedSalesPerson, deleteSalesPerson };
