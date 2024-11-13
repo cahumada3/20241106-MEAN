@@ -1,7 +1,8 @@
+// this file will contain all the methods that actually access the database records 
+
 require('dotenv').config();
 
-const Salesperson = require('../models/salesperson');
-
+// here we are setting up our database connection 
 const mysql = require('mysql2')
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -9,6 +10,8 @@ const connection = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE
 });
+
+const Salesperson = require('../models/salesperson');
 
 //getting all the salespeople
 const getAllSalesPersons = async () => {

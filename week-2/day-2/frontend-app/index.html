@@ -9,12 +9,12 @@
 
         async function getData() {
             let responseData;
-            await fetch('http://localhost:8080/sale')
+            await fetch('http://localhost:8080/salesperson')
             .then(data => {
                 return data.json();
             })
             .then(json => {
-                responseData = json.message;
+                responseData = JSON.stringify(json);
             });
 
             document.getElementById('text-div').innerHTML = responseData;

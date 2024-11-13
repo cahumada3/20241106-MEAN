@@ -3,9 +3,19 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
-app.use(express.json);
+app.use(express.json());
 
-const salespersonLogger = require('./middleware/salesperson-middleware')
+//CORS = cross-origin resource sharing
+// using CORS protection, you can ensure that frontend requests are only allowed from specific "whitelist" IP addresses
+// you can enable this per endpoint or per router, but we are gonna do it gloablly
+const cors = require('cors');
+app.use(cors({origin: process.env.CORS_WHITELIST.split(',')}));
+
+const logger = require('./middleware/request-logger');
+app.use(logger);
+
+const salespersonLogger = require('./middleware/salesperson-middleware');
+//app.use(salespersonLogger);
 
 const salespersonRouter = require('./controllers/salesperson-controller');
 app.use('/salesperson', salespersonRouter, salespersonLogger);
